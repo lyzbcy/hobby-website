@@ -1,0 +1,447 @@
+/* ========================================
+   动态弹性动画效果
+   ======================================== */
+
+/* ========================================
+   节点弹跳动画
+   ======================================== */
+@keyframes nodeBounce {
+    0% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(1.15);
+    }
+
+    50% {
+        transform: scale(0.95);
+    }
+
+    75% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes nodeAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(-180deg);
+    }
+
+    60% {
+        transform: scale(1.2) rotate(10deg);
+    }
+
+    80% {
+        transform: scale(0.9) rotate(-5deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes nodePulse {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 4px 8px rgba(255, 142, 83, 0.2));
+    }
+
+    50% {
+        filter: drop-shadow(0 8px 25px rgba(255, 142, 83, 0.4));
+    }
+}
+
+.node-group {
+    animation: nodeAppear 0.6s var(--transition-bounce) backwards;
+}
+
+.node-group:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.node-group:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.node-group:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.node-group:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.node-group:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.node-group:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+.node-group:nth-child(7) {
+    animation-delay: 0.7s;
+}
+
+.node-group:nth-child(8) {
+    animation-delay: 0.8s;
+}
+
+.node-group:nth-child(9) {
+    animation-delay: 0.9s;
+}
+
+.node-group:nth-child(10) {
+    animation-delay: 1.0s;
+}
+
+.node-group.bounce {
+    animation: nodeBounce 0.5s var(--transition-bounce);
+}
+
+.node-group.center-node .node-circle {
+    animation: nodePulse 2s ease-in-out infinite;
+}
+
+/* ========================================
+   连接线动画
+   ======================================== */
+@keyframes linkDraw {
+    from {
+        stroke-dashoffset: 1000;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes linkPulse {
+
+    0%,
+    100% {
+        stroke-opacity: 0.3;
+    }
+
+    50% {
+        stroke-opacity: 0.6;
+    }
+}
+
+.link {
+    stroke-dasharray: 1000;
+    animation: linkDraw 1.5s ease-out forwards;
+}
+
+.link.active {
+    animation: linkPulse 1.5s ease-in-out infinite;
+}
+
+/* ========================================
+   浮动背景形状
+   ======================================== */
+@keyframes float1 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(30px, -30px) rotate(90deg);
+    }
+
+    50% {
+        transform: translate(0, -50px) rotate(180deg);
+    }
+
+    75% {
+        transform: translate(-30px, -20px) rotate(270deg);
+    }
+}
+
+@keyframes float2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-40px, 30px) scale(1.1);
+    }
+}
+
+@keyframes float3 {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-40px) rotate(180deg);
+    }
+}
+
+.floating-shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.shape-1 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255, 217, 61, 0.3) 0%, transparent 70%);
+    top: 10%;
+    left: 5%;
+    animation: float1 15s ease-in-out infinite;
+}
+
+.shape-2 {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(255, 107, 107, 0.25) 0%, transparent 70%);
+    top: 60%;
+    right: 10%;
+    animation: float2 12s ease-in-out infinite;
+}
+
+.shape-3 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(78, 205, 196, 0.25) 0%, transparent 70%);
+    bottom: 20%;
+    left: 15%;
+    animation: float3 18s ease-in-out infinite;
+}
+
+.shape-4 {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(149, 225, 211, 0.3) 0%, transparent 70%);
+    top: 30%;
+    right: 25%;
+    animation: float1 20s ease-in-out infinite reverse;
+}
+
+/* ========================================
+   面板动画
+   ======================================== */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.panel-content>* {
+    animation: fadeInUp 0.4s ease-out backwards;
+}
+
+.panel-content>*:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.panel-content>*:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.panel-content>*:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.achievement-item {
+    animation: fadeInUp 0.4s ease-out backwards;
+}
+
+.achievement-item:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.achievement-item:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.achievement-item:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.achievement-item:nth-child(4) {
+    animation-delay: 0.5s;
+}
+
+.achievement-item:nth-child(5) {
+    animation-delay: 0.6s;
+}
+
+/* ========================================
+   交互反馈动画
+   ======================================== */
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 217, 61, 0.4);
+    animation: ripple 0.6s ease-out;
+    pointer-events: none;
+}
+
+/* ========================================
+   悬浮效果增强
+   ======================================== */
+@keyframes hoverGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(255, 142, 83, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(255, 142, 83, 0.5);
+    }
+}
+
+.node-group:hover .node-circle {
+    animation: hoverGlow 1s ease-in-out infinite;
+}
+
+/* ========================================
+   子节点展开动画
+   ======================================== */
+@keyframes expandFromCenter {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    60% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.child-node {
+    animation: expandFromCenter 0.5s var(--transition-bounce) backwards;
+}
+
+.child-node:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.child-node:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.child-node:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.child-node:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.child-node:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+/* ========================================
+   加载动画
+   ======================================== */
+@keyframes loadingSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--light-gray);
+    border-top-color: var(--warm-orange);
+    border-radius: 50%;
+    animation: loadingSpin 0.8s linear infinite;
+}
+
+/* ========================================
+   工具提示动画
+   ======================================== */
+@keyframes tooltipAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.tooltip {
+    position: absolute;
+    background: var(--white);
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-medium);
+    font-size: 0.9rem;
+    pointer-events: none;
+    animation: tooltipAppear 0.3s var(--transition-bounce);
+    z-index: 1000;
+}
+
+.tooltip::before {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-top-color: var(--white);
+}

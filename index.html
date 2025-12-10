@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的爱好世界 | My Hobby Universe</title>
+    <meta name="description" content="探索我的爱好世界 - 视频制作、主持、健身">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 动态背景 -->
+    <div class="background-effects">
+        <div class="floating-shapes"></div>
+        <div class="gradient-overlay"></div>
+    </div>
+
+    <!-- 主容器 -->
+    <main class="main-container">
+        <!-- 标题区域 -->
+        <header class="hero-header">
+            <h1 class="title-glow">🌟 我的爱好世界</h1>
+            <p class="subtitle">点击任意节点，探索我的精彩人生</p>
+        </header>
+
+        <!-- 知识图谱容器 -->
+        <div id="graph-container" class="graph-container">
+            <svg id="graph-svg"></svg>
+        </div>
+
+        <!-- 详情面板 -->
+        <aside id="detail-panel" class="detail-panel hidden">
+            <button id="close-panel" class="close-btn">✕</button>
+            <div id="panel-content" class="panel-content"></div>
+        </aside>
+    </main>
+
+    <!-- 提示 -->
+    <div class="hint-toast" id="hint-toast">
+        💡 点击节点查看详情，拖拽可移动节点
+    </div>
+
+    <!-- D3.js CDN -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/graph.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>

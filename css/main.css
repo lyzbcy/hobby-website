@@ -1,0 +1,370 @@
+/* ========================================
+   阳光明亮主题 - 主样式
+   ======================================== */
+
+:root {
+    /* 阳光色彩系统 */
+    --sun-yellow: #FFD93D;
+    --warm-orange: #FF8E53;
+    --coral-pink: #FF6B6B;
+    --sky-blue: #4ECDC4;
+    --mint-green: #95E1D3;
+    --lavender: #DDA0DD;
+    
+    /* 中性色 */
+    --white: #FFFFFF;
+    --soft-white: #FFF9F0;
+    --light-gray: #F7F7F7;
+    --text-dark: #2D3436;
+    --text-muted: #636E72;
+    
+    /* 渐变 */
+    --gradient-sunny: linear-gradient(135deg, #FFD93D 0%, #FF8E53 50%, #FF6B6B 100%);
+    --gradient-ocean: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+    --gradient-sunset: linear-gradient(135deg, #FF8E53 0%, #FF6B6B 100%);
+    --gradient-fresh: linear-gradient(135deg, #95E1D3 0%, #4ECDC4 100%);
+    
+    /* 阴影 */
+    --shadow-soft: 0 4px 20px rgba(255, 142, 83, 0.15);
+    --shadow-medium: 0 8px 30px rgba(255, 142, 83, 0.2);
+    --shadow-glow: 0 0 40px rgba(255, 217, 61, 0.3);
+    
+    /* 尺寸 */
+    --header-height: 120px;
+    --panel-width: 400px;
+    
+    /* 动画 */
+    --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 重置与基础 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--soft-white);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* ========================================
+   背景效果
+   ======================================== */
+.background-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(255, 217, 61, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 107, 107, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(78, 205, 196, 0.1) 0%, transparent 70%);
+}
+
+.floating-shapes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/* ========================================
+   主容器
+   ======================================== */
+.main-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* ========================================
+   顶部标题
+   ======================================== */
+.hero-header {
+    text-align: center;
+    padding: 30px 20px 20px;
+    z-index: 10;
+}
+
+.title-glow {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: var(--gradient-sunny);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    margin-bottom: 8px;
+    animation: titleFloat 3s ease-in-out infinite;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+/* ========================================
+   知识图谱容器
+   ======================================== */
+.graph-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+#graph-svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* 节点样式 */
+.node-group {
+    cursor: pointer;
+    transition: transform 0.3s var(--transition-bounce);
+}
+
+.node-group:hover {
+    transform: scale(1.1);
+}
+
+.node-circle {
+    stroke-width: 3px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+    transition: all 0.3s var(--transition-bounce);
+}
+
+.node-group:hover .node-circle {
+    stroke-width: 4px;
+    filter: drop-shadow(0 6px 20px rgba(255, 142, 83, 0.4));
+}
+
+.node-icon {
+    font-size: 24px;
+    text-anchor: middle;
+    dominant-baseline: central;
+    pointer-events: none;
+}
+
+.node-label {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    fill: var(--text-dark);
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+/* 连接线样式 */
+.link {
+    stroke: var(--warm-orange);
+    stroke-opacity: 0.4;
+    stroke-width: 2px;
+    stroke-linecap: round;
+    transition: all 0.3s ease;
+}
+
+.link.highlighted {
+    stroke-opacity: 0.8;
+    stroke-width: 3px;
+}
+
+/* ========================================
+   详情面板
+   ======================================== */
+.detail-panel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: var(--panel-width);
+    height: 100%;
+    background: var(--white);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.4s var(--transition-bounce);
+    z-index: 100;
+    overflow-y: auto;
+    padding: 30px;
+}
+
+.detail-panel.visible {
+    transform: translateX(0);
+}
+
+.detail-panel.hidden {
+    transform: translateX(100%);
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: var(--light-gray);
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s var(--transition-bounce);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    background: var(--coral-pink);
+    color: white;
+    transform: rotate(90deg) scale(1.1);
+}
+
+.panel-content {
+    margin-top: 50px;
+}
+
+.panel-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: var(--gradient-sunny);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.panel-description {
+    color: var(--text-muted);
+    margin-bottom: 30px;
+    line-height: 1.8;
+}
+
+.achievement-list {
+    list-style: none;
+}
+
+.achievement-item {
+    background: var(--light-gray);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 15px;
+    transition: all 0.3s var(--transition-bounce);
+    border-left: 4px solid var(--warm-orange);
+}
+
+.achievement-item:hover {
+    transform: translateX(10px);
+    box-shadow: var(--shadow-soft);
+}
+
+.achievement-item h4 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+}
+
+.achievement-item p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.achievement-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--gradient-sunny);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+/* ========================================
+   提示吐司
+   ======================================== */
+.hint-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--white);
+    padding: 15px 30px;
+    border-radius: 50px;
+    box-shadow: var(--shadow-medium);
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    z-index: 50;
+    opacity: 0;
+    animation: toastSlideIn 0.5s var(--transition-bounce) 1s forwards;
+}
+
+/* ========================================
+   响应式设计
+   ======================================== */
+@media (max-width: 768px) {
+    .title-glow {
+        font-size: 1.8rem;
+    }
+    
+    .subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .detail-panel {
+        width: 100%;
+        height: 70%;
+        top: auto;
+        bottom: 0;
+        transform: translateY(100%);
+        border-radius: 30px 30px 0 0;
+    }
+    
+    .detail-panel.visible {
+        transform: translateY(0);
+    }
+    
+    .hint-toast {
+        font-size: 0.85rem;
+        padding: 12px 20px;
+    }
+}
+
+/* ========================================
+   动画关键帧
+   ======================================== */
+@keyframes titleFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes toastSlideIn {
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
