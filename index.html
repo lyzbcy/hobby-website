@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link rel="stylesheet" href="css/animations.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <!-- 动态背景 -->
     <div class="background-effects">
@@ -21,7 +23,7 @@
         <!-- 标题区域 -->
         <header class="hero-header">
             <h1 class="title-glow">🌟 我的爱好世界</h1>
-            <p class="subtitle">点击任意节点，探索我的精彩人生</p>
+            <p class="subtitle">探索多彩人生 · 点击节点查看详细内容</p>
         </header>
 
         <!-- 知识图谱容器 -->
@@ -38,13 +40,15 @@
 
     <!-- 提示 -->
     <div class="hint-toast" id="hint-toast">
-        💡 点击节点查看详情，拖拽可移动节点
+        💡 点击爱好展开详情 · 再次点击收起 · 可拖拽移动
     </div>
 
     <!-- D3.js CDN -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="js/markdown.js"></script>
     <script src="js/data.js"></script>
     <script src="js/graph.js"></script>
     <script src="js/animations.js"></script>
 </body>
+
 </html>

@@ -10,29 +10,29 @@
     --sky-blue: #4ECDC4;
     --mint-green: #95E1D3;
     --lavender: #DDA0DD;
-    
+
     /* 中性色 */
     --white: #FFFFFF;
     --soft-white: #FFF9F0;
     --light-gray: #F7F7F7;
     --text-dark: #2D3436;
     --text-muted: #636E72;
-    
+
     /* 渐变 */
     --gradient-sunny: linear-gradient(135deg, #FFD93D 0%, #FF8E53 50%, #FF6B6B 100%);
     --gradient-ocean: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
     --gradient-sunset: linear-gradient(135deg, #FF8E53 0%, #FF6B6B 100%);
     --gradient-fresh: linear-gradient(135deg, #95E1D3 0%, #4ECDC4 100%);
-    
+
     /* 阴影 */
     --shadow-soft: 0 4px 20px rgba(255, 142, 83, 0.15);
     --shadow-medium: 0 8px 30px rgba(255, 142, 83, 0.2);
     --shadow-glow: 0 0 40px rgba(255, 217, 61, 0.3);
-    
+
     /* 尺寸 */
     --header-height: 120px;
     --panel-width: 400px;
-    
+
     /* 动画 */
     --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
@@ -45,7 +45,8 @@
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -77,7 +78,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
+    background:
         radial-gradient(circle at 20% 20%, rgba(255, 217, 61, 0.2) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(255, 107, 107, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 50% 50%, rgba(78, 205, 196, 0.1) 0%, transparent 70%);
@@ -105,24 +106,31 @@ body {
    ======================================== */
 .hero-header {
     text-align: center;
-    padding: 30px 20px 20px;
+    padding: 15px 20px 10px;
+    /* 减小 padding */
     z-index: 10;
+    position: relative;
+    pointer-events: none;
+    /* 不阻挡鼠标事件 */
 }
 
 .title-glow {
-    font-size: 2.5rem;
+    font-size: 2rem;
+    /* 稍微减小 */
     font-weight: 700;
     background: var(--gradient-sunny);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow: none;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
+    /* 减小间距 */
     animation: titleFloat 3s ease-in-out infinite;
 }
 
 .subtitle {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
+    /* 稍微减小 */
     color: var(--text-muted);
     font-weight: 400;
 }
@@ -144,22 +152,29 @@ body {
 /* 节点样式 */
 .node-group {
     cursor: pointer;
-    transition: transform 0.3s var(--transition-bounce);
-}
-
-.node-group:hover {
-    transform: scale(1.1);
+    /* 移除 transform transition 避免与 D3 位置更新冲突 */
 }
 
 .node-circle {
     stroke-width: 3px;
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
-    transition: all 0.3s var(--transition-bounce);
+    /* 只对 filter 和 stroke 添加过渡，不影响位置 */
+    transition: filter 0.2s ease, stroke-width 0.2s ease, fill 0.2s ease;
 }
 
 .node-group:hover .node-circle {
-    stroke-width: 4px;
-    filter: drop-shadow(0 6px 20px rgba(255, 142, 83, 0.4));
+    stroke-width: 5px;
+    filter: drop-shadow(0 8px 25px rgba(255, 142, 83, 0.6));
+}
+
+/* 为中心节点添加特殊悬停效果 */
+.center-node:hover .node-circle {
+    filter: drop-shadow(0 10px 30px rgba(255, 217, 61, 0.7));
+}
+
+/* 子节点悬停效果 */
+.child-node:hover .node-circle {
+    filter: drop-shadow(0 6px 18px rgba(78, 205, 196, 0.5));
 }
 
 .node-icon {
@@ -326,11 +341,11 @@ body {
     .title-glow {
         font-size: 1.8rem;
     }
-    
+
     .subtitle {
         font-size: 0.95rem;
     }
-    
+
     .detail-panel {
         width: 100%;
         height: 70%;
@@ -339,11 +354,11 @@ body {
         transform: translateY(100%);
         border-radius: 30px 30px 0 0;
     }
-    
+
     .detail-panel.visible {
         transform: translateY(0);
     }
-    
+
     .hint-toast {
         font-size: 0.85rem;
         padding: 12px 20px;
@@ -354,9 +369,12 @@ body {
    动画关键帧
    ======================================== */
 @keyframes titleFloat {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-5px);
     }
@@ -367,4 +385,87 @@ body {
         opacity: 1;
         transform: translateX(-50%) translateY(0);
     }
+}
+
+/* ========================================
+   子节点样式
+   ======================================== */
+.child-node .node-circle {
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.08));
+}
+
+.child-node:hover .node-circle {
+    filter: drop-shadow(0 4px 12px rgba(255, 142, 83, 0.3));
+}
+
+.child-link {
+    stroke: var(--sky-blue);
+    stroke-opacity: 0.5;
+    stroke-width: 2px;
+    stroke-dasharray: 5, 3;
+}
+
+.child-link.highlighted {
+    stroke-opacity: 0.8;
+}
+
+/* ========================================
+   悬浮提示框
+   ======================================== */
+.node-tooltip {
+    position: fixed;
+    background: var(--white);
+    border-radius: 16px;
+    padding: 16px 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    max-width: 280px;
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+    transition: all 0.3s var(--transition-bounce);
+    pointer-events: none;
+}
+
+.node-tooltip.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.tooltip-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.tooltip-icon {
+    font-size: 1.5rem;
+}
+
+.tooltip-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.tooltip-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.tooltip-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--gradient-sunny);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* 展开状态的爱好节点 */
+.hobby-node.expanded .node-circle {
+    filter: drop-shadow(0 8px 25px rgba(255, 142, 83, 0.4));
 }
